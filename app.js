@@ -1,15 +1,53 @@
 const inquirer = require('inquirer');
-const { identity } = require('rxjs');
-//const fs = require('fs');
-//const generatePage = require('./src/page-template')
-//
-//const pageHTML = generatePage(name,github);
-//
-//fs.writeFile('./index.html', pageHTML, err => {
-//    if(err) throw err;
-//
-//    console.log('Portfolio complete! index.html');
-//});
+const fs = require('fs');
+const generatePage = require('./src/page-template')
+
+//DELETE THIS 
+const mockData = {
+    name: 'Lernantino',
+    github: 'lernantino',
+    confirmAbout: true,
+    about:
+      'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et.',
+    projects: [
+      {
+        name: 'Run Buddy',
+        description:
+          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+        languages: ['HTML', 'CSS'],
+        link: 'https://github.com/lernantino/run-buddyLinks to an external site. (Links to an external site.)',
+        feature: true,
+        confirmAddProject: true
+      },
+      {
+        name: 'Taskinator',
+        description:
+          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+        languages: ['JavaScript', 'HTML', 'CSS'],
+        link: 'https://github.com/lernantino/taskinatorLinks to an external site. (Links to an external site.)',
+        feature: true,
+        confirmAddProject: true
+      },
+      {
+        name: 'Taskmaster Pro',
+        description:
+          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque. Nulla eget fringilla nulla. Integer gravida magna mi, id efficitur metus tempus et. Nam fringilla elit dapibus pellentesque cursus.',
+        languages: ['JavaScript', 'jQuery', 'CSS', 'HTML', 'Bootstrap'],
+        link: 'https://github.com/lernantino/taskmaster-proLinks to an external site. (Links to an external site.)',
+        feature: false,
+        confirmAddProject: true
+      },
+      {
+        name: 'Robot Gladiators',
+        description:
+          'Duis consectetur nunc nunc. Morbi finibus non sapien nec pharetra. Fusce nec dignissim orci, ac interdum ipsum. Morbi mattis justo sed commodo pellentesque.',
+        languages: ['JavaScript'],
+        link: 'https://github.com/lernantino/robot-gladiatorsLinks to an external site. (Links to an external site.)',
+        feature: false,
+        confirmAddProject: false
+      }
+    ]
+  };
 
 //collects data about the user. 
 const promptUser = () => {
@@ -147,5 +185,11 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
+        const pageHTML = generatePage(mockData); //CHANGE THIS BACK TO portfolioData
+
+        fs.writeFile('./index.html', pageHTML, err => {
+            if(err) throw err;
+
+            console.log('Portfolio complete! index.html');
+        });
     });
